@@ -1,0 +1,80 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Login in Github Integrations</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Webpack rendered CSS -->
+  </head>
+  <style type="text/css">
+
+    body {
+      background: rgba(0, 0, 0, 0.18);
+      background: linear-gradient(to right, rgb(185, 147, 214), rgb(140, 166, 219));
+    }
+
+    .content-box-signin {
+      border: 0;
+      border-radius: 1rem;
+      box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .app-title {
+      margin-top: 5rem;
+      font-weight: 300;
+      font-size: 2.5rem;
+    }
+
+    .content-box-signin .signin-title {
+      margin-bottom: 2rem;
+      font-weight: 300;
+      font-size: 1.5rem;
+    }
+
+    .content-box-signin .box-body {
+      padding: 2rem;
+    }
+
+    .btn-block + .btn-block {
+        margin-top: 5px;
+    }
+
+    .btn-github {
+        color: #fff;
+        background-color: #444;
+        border-color: rgba(0,0,0,0.2);
+    }
+
+    .btn-social {
+        position: relative;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+  </style>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+
+          <h1 class="app-title text-center">Github Integrations</h1>
+
+          <div class="card content-box-signin my-5">
+            <div class="box-body">
+              <h5 class="signin-title text-center">Sign In</h5>
+              <hr class="my-4">
+              <a href="{% url "social:begin" "github" %}" class="btn btn-block btn-social btn-lg btn-github">
+                <span class="fa fa-github"></span>
+                Sign in with GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
