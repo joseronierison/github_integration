@@ -51,13 +51,9 @@ CELERY_SEND_TASK_ERROR_EMAILS = True
 
 # Whitenoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-MIDDLEWARE.insert(  # insert WhiteNoiseMiddleware right after SecurityMiddleware
-    MIDDLEWARE.index('django.middleware.security.SecurityMiddleware') + 1,
-    'whitenoise.middleware.WhiteNoiseMiddleware')
+MIDDLEWARE +=('whitenoise.middleware.WhiteNoiseMiddleware',)
 
-# django-log-request-id
-MIDDLEWARE.insert(  # insert RequestIDMiddleware on the top
-    0, 'log_request_id.middleware.RequestIDMiddleware')
+MIDDLEWARE += ('log_request_id.middleware.RequestIDMiddleware',)
 
 LOG_REQUEST_ID_HEADER = 'HTTP_X_REQUEST_ID'
 LOG_REQUESTS = True
