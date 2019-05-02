@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react'
-import HomeNavbar from '../../app/github-integration';
-import { Container, Row, Col, InputGroup, FormControl, Button } from 'react-bootstrap';
+import React, { Component, Fragment } from "react"
+import HomeNavbar from "../../app/github-integration";
+import { Container, Row, Col, InputGroup, FormControl, Button } from "react-bootstrap";
 import "./style.css";
 
 export default class Home extends Component {

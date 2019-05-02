@@ -1,3 +1,3 @@
-import HomeNavbar from './components';
+import HomeNavbar from "./components";
 
 export default HomeNavbar;
