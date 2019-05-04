@@ -1,12 +1,12 @@
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 
-const initialState = {}
+const initialState = {};
 
-const aReducer = (state = {}, action) => {
+const aReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "LOAD_INFO":
+    case 'LOAD_INFO':
       return {
-        result: action.payload
+        result: action.payload,
       };
     default:
       return state;
@@ -14,5 +14,5 @@ const aReducer = (state = {}, action) => {
 };
 
 export default combineReducers({
-  aReducer
+  aReducer,
 });

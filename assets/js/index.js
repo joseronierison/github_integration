@@ -1,27 +1,23 @@
-// import pages
-import "bootstrap-includes";
-import "../sass/style.scss";
+import { createStore, applyMiddleware, compose } from 'redux';
+import ReactDOM from 'react-dom';
+import React from 'react';
+import 'bootstrap-includes';
+import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
 
-import Routes from "./routes";
-import reducers from "./reducers";
-import { createStore, applyMiddleware, compose } from "redux"
-import React from "react";
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import thunk from "redux-thunk"
+import Routes from './routes';
+import reducers from './reducers';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+import '../sass/style.scss';
 
-const store = createStore(
-  reducers,
-  composeEnhancers(
-    applyMiddleware(thunk)
-  )
-)
+// eslint-disable-next-line no-underscore-dangle
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <Provider store={store}>
     <Routes />
   </Provider>,
-  document.getElementById("react-app")
+  document.getElementById('react-app'),
 );
