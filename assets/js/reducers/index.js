@@ -2,11 +2,28 @@ import { combineReducers } from 'redux';
 
 const initialState = {};
 
-const aReducer = (state = initialState, action) => {
+const user = (state = initialState, action) => {
   switch (action.type) {
-    case 'LOAD_INFO':
+    case 'LOAD_USER':
       return {
-        result: action.payload,
+        ...state,
+        profile: action.payload,
+      };
+    case 'LOAD_REPOSITORIES':
+      return {
+        ...state,
+        repositories: action.payload,
+      };
+    case 'LOAD_COMMITS':
+      return {
+        ...state,
+        repositories: state.repositories.map((reponsitory, index) =>{
+          if (reponsitory.name === action.repoName) {
+            return {...reponsitory, commits: action.payload};
+          }
+
+          return reponsitory;
+        })
       };
     default:
       return state;
@@ -14,5 +31,5 @@ const aReducer = (state = initialState, action) => {
 };
 
 export default combineReducers({
-  aReducer,
+  user,
 });

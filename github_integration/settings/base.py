@@ -50,6 +50,7 @@ AUTH_USER_MODEL = 'users.User'
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
+    'rest_framework',
     'social_django',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -64,7 +65,17 @@ INSTALLED_APPS = [
 
     'common',
     'users',
+    'github_repositories',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
