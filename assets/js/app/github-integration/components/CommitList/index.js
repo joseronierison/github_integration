@@ -3,7 +3,7 @@ import { ListGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom'
 
-class CommitsList extends React.Component {
+class CommitList extends React.Component {
   render() {
     return (
       <ListGroup variant="flush">
@@ -20,7 +20,7 @@ class CommitsList extends React.Component {
   }
 }
 
-CommitsList.propTypes = {
+CommitList.propTypes = {
   repository: PropTypes.shape({
     url: PropTypes.string,
     sha: PropTypes.string,
@@ -30,4 +30,4 @@ CommitsList.propTypes = {
   }).isRequired,
 };
 
-export default CommitsList;
+export default CommitList;

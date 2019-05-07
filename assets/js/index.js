@@ -4,10 +4,8 @@ import React from 'react';
 import 'bootstrap-includes';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-
-import Routes from './routes';
 import reducers from './reducers';
-
+import Routes from './routes';
 import '../sass/style.scss';
 
 // eslint-disable-next-line no-underscore-dangle

@@ -19,8 +19,8 @@ urlpatterns = [
 
     url(r'^api/', include(router.urls)),
     url(r'^api/current_user', users_views.current_user, name='current_user'),
-    url(r'^api/retrieve_repo/(?P<repo_name>\w{0,100})/$', app_views.retrieve_github_repo, name='retrieve_github_repo'),
-    url(r'^api/retrieve_repo_commits/(?P<repo_name>\w{0,100})/$', app_views.retrieve_repo_commits, name='retrieve_repo_commits'),
+    url(r'^api/retrieve_repo/(?P<repo_name>\w{0,100})/$', repository_views.retrieve_github_repo, name='retrieve_github_repo'),
+    url(r'^api/retrieve_repo_commits/(?P<repo_name>\w{0,100})/$', repository_views.retrieve_repo_commits, name='retrieve_repo_commits'),
 
     url(r'^admin/', admin.site.urls),
     url(r'^jsreverse/$', django_js_reverse.views.urls_js, name='js_reverse'),

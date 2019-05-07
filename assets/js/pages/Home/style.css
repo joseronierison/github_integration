@@ -1,3 +1,10 @@
 .search-row {
-    padding-top: 10%;
+    padding-top: 14%;
+}
+
+.adding-repo-alert {
+    margin-top: 1rem;
+    margin-right: 2rem;
+    float: right;
+    position: static;
 }
