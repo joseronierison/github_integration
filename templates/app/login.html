@@ -12,30 +12,77 @@
   <style type="text/css">
 
     body {
-      background: rgba(0, 0, 0, 0.18);
-      background: linear-gradient(to right, rgb(185, 147, 214), rgb(140, 166, 219));
+        font-family: "Lato", sans-serif;
     }
 
-    .content-box-signin {
-      border: 0;
-      border-radius: 1rem;
-      box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+    .main-head{
+        height: 150px;
+        background: #FFF;
     }
 
-    .app-title {
-      margin-top: 5rem;
-      font-weight: 300;
-      font-size: 2.5rem;
+    .sidenav {
+        height: 100%;
+        overflow-x: hidden;
+        padding-top: 20px;
+        background-color: #001f3f;
     }
 
-    .content-box-signin .signin-title {
-      margin-bottom: 2rem;
-      font-weight: 300;
-      font-size: 1.5rem;
+    .main {
+        padding: 0px 10px;
     }
 
-    .content-box-signin .box-body {
-      padding: 2rem;
+    @media screen and (max-height: 450px) {
+        .sidenav {padding-top: 15px;}
+    }
+
+    @media screen and (max-width: 450px) {
+        .login-form{
+            margin-top: 10%;
+        }
+
+        .register-form{
+            margin-top: 10%;
+        }
+    }
+
+    @media screen and (min-width: 768px){
+        .main{
+            margin-left: 70%;
+        }
+
+        .sidenav{
+            width: 70%;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+        }
+
+        .login-form{
+            margin-top: 65%;
+        }
+
+        .register-form{
+            margin-top: 20%;
+        }
+    }
+
+    .login-main-text {
+        margin-top: 13%;
+        padding: 60px;
+        color: #fff;
+        font-weight: 500;
+    }
+
+    .login-main-text > ul > li {
+      font-size: 1.3rem;
+    }
+
+    .login-title{
+      margin-top: 1.4rem;
+      font-weight: 500;
+      color: #ffe;
+      font-size: 3rem;
     }
 
     .btn-block + .btn-block {
@@ -48,6 +95,10 @@
         border-color: rgba(0,0,0,0.2);
     }
 
+    .btn-github:hover {
+        color: #fff;
+    }
+
     .btn-social {
         position: relative;
         white-space: nowrap;
@@ -57,24 +108,23 @@
   </style>
 
   <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-
-          <h1 class="app-title text-center">Github Integrations</h1>
-
-          <div class="card content-box-signin my-5">
-            <div class="box-body">
-              <h5 class="signin-title text-center">Sign In</h5>
-              <hr class="my-4">
-              <a href="{% url "social:begin" "github" %}" class="btn btn-block btn-social btn-lg btn-github">
-                <span class="fa fa-github"></span>
-                Sign in with GitHub
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="sidenav">
+     <div class="login-main-text">
+      <h1 class="login-title">Github Integration</h1>
+      <ul>
+        <li>Add and access to your repositories from github</li>
+        <li>See all commits of you repositories</li>
+      </ul>
+     </div>
     </div>
+      <div class="main">
+         <div class="col-sm-12">
+            <div class="login-form">
+               <a href="{% url "social:begin" "github" %}" class="btn btn-block btn-social btn-lg btn-github">
+                  Sign in with GitHub
+                </a>
+            </div>
+         </div>
+      </div>
   </body>
 </html>
