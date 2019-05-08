@@ -62,6 +62,10 @@ class Home extends React.Component {
             this.setState({error: "We could not add this repository in the database."});
             this.toggleAddingRepo();
           });
+      })
+      .catch(error => {
+        this.setState({error: `We could not find the provided repository "${this.props.user.profile.username}/${this.state.repo_name}".`});
+        this.toggleAddingRepo();
       });
   }
 
