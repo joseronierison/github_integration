@@ -18,7 +18,12 @@ const RepositoryList = props => (
 );
 
 RepositoryList.propTypes = {
-  repositories: PropTypes.arrayOf,
+  repositories: PropTypes.arrayOf(
+    PropTypes.shape({
+      full_name: PropTypes.string,
+      name: PropTypes.string,
+    })
+  ),
 };
 
 RepositoryList.defaultProps = {
