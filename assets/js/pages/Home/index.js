@@ -59,7 +59,7 @@ class Home extends React.Component {
             this.props.history.push(commitsUrl)
           })
           .catch(error => {
-            this.setState({error: "We could not add this repository to the database."});
+            this.setState({error: "We could not add this repository in the database."});
             this.toggleAddingRepo();
           });
       });

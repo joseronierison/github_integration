@@ -4,21 +4,27 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework import serializers, viewsets
+from rest_framework import serializers, viewsets, generics
 from github import Github
 from github_repositories.models import Repository
+from users.models import User
 
 class RepositorySerializer(serializers.HyperlinkedModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
     class Meta:
         model = Repository
-        fields = ('id', 'name', 'description', 'full_name', 'url', 'created_at')
+        fields = ('id', 'user', 'name', 'description', 'full_name', 'url', 'created_at')
 
 
-class RepositoryViewSet(viewsets.ModelViewSet):
-    queryset = Repository.objects.all()
+class RepositoryViewSet(generics.ListAPIView, viewsets.ModelViewSet):
     serializer_class = RepositorySerializer
     authentication_classes = (SessionAuthentication,)
     permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        return Repository.objects.filter(user=self.request.user)
+
 
 @api_view(['GET'])
 @authentication_classes([SessionAuthentication])

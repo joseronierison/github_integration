@@ -10,7 +10,7 @@ from users import views as users_views
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register(r'repository', repository_views.RepositoryViewSet)
+router.register(r'repository', repository_views.RepositoryViewSet, base_name='repository')
 
 urlpatterns = [
     url(r'^$', app_views.home, name='home'),
