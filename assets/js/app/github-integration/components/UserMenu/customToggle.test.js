@@ -10,7 +10,7 @@ describe('components', () => {
     const callback = jest.fn();
     const customToggleProps = {
       onClick: callback,
-      children: "children content",
+      children: 'children content',
     };
 
     it('should render children', () => {

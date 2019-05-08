@@ -76,7 +76,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const handleHide = () => this.setState({ error: false });
+    const handleAlertHide = () => this.setState({ error: false });
 
     if (!this.props.user.profile) {
       return <Dashboard><Loading /></Dashboard>;
@@ -91,7 +91,7 @@ class Home extends React.Component {
           </p>
           <hr />
           <div className="d-flex justify-content-end">
-            <Button onClick={handleHide} variant="outline-dark">Close</Button>
+            <Button onClick={handleAlertHide} variant="outline-dark">Close</Button>
           </div>
         </Alert>
         <Container>
@@ -139,7 +139,10 @@ Home.propTypes = {
       name: PropTypes.string,
       username: PropTypes.string,
     }),
-    repositories: PropTypes.arrayOf,
+    repositories: PropTypes.arrayOf(PropTypes.shape({
+      full_name: PropTypes.string,
+      name: PropTypes.string,
+    })),
   }).isRequired,
 };
 

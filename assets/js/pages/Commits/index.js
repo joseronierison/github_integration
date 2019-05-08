@@ -7,16 +7,7 @@ import api from '../../api';
 import actions from '../../actions';
 import Dashboard from '../dashboard';
 
-const mapStateToProps = state => ({
-  ...state,
-});
-
-const mapDispatchToProps = dispatch => ({
-  loadCommits: (repoName, payload) => dispatch(actions.loadCommits(repoName, payload)),
-  loadRepositories: payload => dispatch(actions.loadRepositories(payload)),
-});
-
-class Commits extends React.Component {
+export class Commits extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.goHome = this.goHome.bind(this);
@@ -81,9 +72,21 @@ Commits.propTypes = {
       name: PropTypes.string,
       username: PropTypes.string,
     }),
-    repositories: PropTypes.arrayOf,
+    repositories: PropTypes.arrayOf(PropTypes.shape({
+      full_name: PropTypes.string,
+      name: PropTypes.string,
+    })),
   }).isRequired,
 };
+
+const mapStateToProps = state => ({
+  ...state,
+});
+
+const mapDispatchToProps = dispatch => ({
+  loadCommits: (repoName, payload) => dispatch(actions.loadCommits(repoName, payload)),
+  loadRepositories: payload => dispatch(actions.loadRepositories(payload)),
+});
 
 export default connect(
   mapStateToProps,
