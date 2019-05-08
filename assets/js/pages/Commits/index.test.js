@@ -1,7 +1,6 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import configureStore from 'redux-mock-store'
 import { Commits } from './index';
 import api from '../../api';
 
@@ -23,8 +22,8 @@ describe('components', () => {
         sha: 'a-sha',
         url: 'http://an-url',
         message: 'a commit message',
-        author: 'An Author'
-      }
+        author: 'An Author',
+      },
     ];
 
     api.retrieveRepoCommits.mockResolvedValue(retrievedCommits);
@@ -51,7 +50,7 @@ describe('components', () => {
       match: {
         params: {
           repo_name: repositoryName,
-        }
+        },
       },
       history: {
         push: historyPushMock,
@@ -63,7 +62,7 @@ describe('components', () => {
         },
         repositories: retrievedRepositories,
       },
-      getState: jest.fn()
+      getState: jest.fn(),
     };
 
     it('should repository full name in Breadcrumb in active Breadcrumb Item', () => {
@@ -92,21 +91,27 @@ describe('components', () => {
     });
 
     it('should load repositories', () => {
-      const component = shallow(<Commits {...commitsPageProps} />);
+      shallow(<Commits {...commitsPageProps} />);
 
       expect(api.getRepositories).toHaveBeenCalled();
       expect(loadRepositoriesMock).toHaveBeenCalledWith(retrievedRepositories);
     });
 
     it('should load commits', () => {
-      const component = shallow(<Commits {...commitsPageProps} />);
+      shallow(<Commits {...commitsPageProps} />);
 
       expect(api.retrieveRepoCommits).toHaveBeenCalledWith(repositoryName);
       expect(loadCommitsMock).toHaveBeenCalledWith(repositoryName, retrievedCommits);
     });
 
     it('should render loading with dashboard when no repo and commit is found', () => {
-      const loadingProps = {...commitsPageProps, user: {...commitsPageProps.user, repositories: []}};
+      const loadingProps = {
+        ...commitsPageProps,
+        user: {
+          ...commitsPageProps.user,
+          repositories: [],
+        },
+      };
 
       const component = shallow(<Commits {...loadingProps} />);
 
@@ -114,6 +119,5 @@ describe('components', () => {
 
       expect(loadingComponent).toEqual('<Loading />');
     });
-
   });
 });
