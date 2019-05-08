@@ -1,3 +1,4 @@
+import { actionTypes } from '../constants';
 import user from './index'
 
 describe('user reducer', () => {
@@ -11,13 +12,13 @@ describe('user reducer', () => {
   });
 
   it('should load user profile', () => {
-    const action = { type: 'LOAD_USER', payload: profile };
+    const action = { type: actionTypes.LOAD_USER, payload: profile };
 
     expect(user(undefined, action)).toEqual({ user : { profile } })
   });
 
   it('should load user repositories', () => {
-    const action = { type: 'LOAD_REPOSITORIES', payload: repositories };
+    const action = { type: actionTypes.LOAD_REPOSITORIES, payload: repositories };
 
     expect(user(undefined, action)).toEqual({ user : { repositories } })
   });
@@ -31,7 +32,7 @@ describe('user reducer', () => {
       },
     };
 
-    const action = { type: 'LOAD_COMMITS', repoName: 'actual_repo_name', payload: commits };
+    const action = { type: actionTypes.LOAD_COMMITS, repoName: 'actual_repo_name', payload: commits };
 
     const expectedState = {
       user : {
@@ -53,7 +54,7 @@ describe('user reducer', () => {
       },
     };
 
-    const action = { type: 'LOAD_COMMITS', repoName: 'actual_repo_name', payload: commits };
+    const action = { type: actionTypes.LOAD_COMMITS, repoName: 'actual_repo_name', payload: commits };
 
     expect(user(predefinedState, action)).toEqual(predefinedState)
   });

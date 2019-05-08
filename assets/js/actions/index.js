@@ -1,20 +1,22 @@
+import { actionTypes } from '../constants';
+
 const loadUser = payload => (
   {
-    type: 'LOAD_USER',
+    type: actionTypes.LOAD_USER,
     payload,
   }
 );
 
 const loadRepositories = payload => (
   {
-    type: 'LOAD_REPOSITORIES',
+    type: actionTypes.LOAD_REPOSITORIES,
     payload,
   }
 );
 
 const loadCommits = (repoName, payload) => (
   {
-    type: 'LOAD_COMMITS',
+    type: actionTypes.LOAD_COMMITS,
     repoName,
     payload,
 
