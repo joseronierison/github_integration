@@ -1,15 +1,14 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
-import UserMenu from './userMenu';
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
+import UserMenu from '../UserMenu';
 
 const HomeNavbar = props => (
   <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-    <Navbar.Brand><NavLink to='/' exact className="navbar-link">Github Integration</NavLink></Navbar.Brand>
+    <Navbar.Brand><NavLink to="/" exact className="navbar-link">Github Integration</NavLink></Navbar.Brand>
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
     <Navbar.Collapse id="responsive-navbar-nav">
-      <Nav className="mr-auto">
-      </Nav>
+      <Nav className="mr-auto" />
       <Nav>
         <UserMenu {...props} />
       </Nav>

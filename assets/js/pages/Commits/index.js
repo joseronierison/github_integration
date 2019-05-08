@@ -25,7 +25,7 @@ class Commits extends React.Component {
   componentWillMount() {
     const repoName = this.props.match.params.repo_name;
 
-    this.setState({repoName});
+    this.setState({ repoName });
 
     api.getRepositories().then(response => this.props.loadRepositories(response));
     api.retrieveRepoCommits(repoName).then(response => this.props.loadCommits(repoName, response));
@@ -38,7 +38,8 @@ class Commits extends React.Component {
   }
 
   render() {
-    const repo = this.props.user.repositories.find((repository) => repository.name === this.state.repoName);
+    const repo = this.props.user.repositories.find(repository =>
+      repository.name === this.state.repoName);
 
     if (!repo || !repo.commits) {
       return <Dashboard><Loading /></Dashboard>;
@@ -64,14 +65,25 @@ class Commits extends React.Component {
   }
 }
 
-Commits.defaultProps = {
-  user: {
-    profile: {
-      name: "loading name..",
-      username: "loading username..",
-    },
-  },
-}
+Commits.propTypes = {
+  loadRepositories: PropTypes.func.isRequired,
+  loadCommits: PropTypes.func.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      repo_name: PropTypes.string,
+    }),
+  }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  user: PropTypes.shape({
+    profile: PropTypes.shape({
+      name: PropTypes.string,
+      username: PropTypes.string,
+    }),
+    repositories: PropTypes.arrayOf,
+  }).isRequired,
+};
 
 export default connect(
   mapStateToProps,

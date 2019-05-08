@@ -1,24 +1,16 @@
 import React from 'react';
 import { ListGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom'
 
-class CommitList extends React.Component {
-  render() {
-    return (
-      <ListGroup variant="flush">
-        {this.props.repository.commits.map((commit, index) => {
-          return (
-            <ListGroup.Item key={index}>
-              <a href={commit.url} target="_blank">{commit.sha}</a> <br />
-              <span><b>{commit.author}</b> - {commit.message}</span>
-            </ListGroup.Item>
-          );
-        })}
-      </ListGroup>
-    );
-  }
-}
+const CommitList = props => (
+  <ListGroup variant="flush">
+    {props.repository.commits.map(commit => (
+      <ListGroup.Item key={commit.sha}>
+        <a href={commit.url} target="_blank" rel="noopener noreferrer">{commit.sha}</a> <br />
+        <span><b>{commit.author}</b> - {commit.message}</span>
+      </ListGroup.Item>))
+    }
+  </ListGroup>);
 
 CommitList.propTypes = {
   repository: PropTypes.shape({

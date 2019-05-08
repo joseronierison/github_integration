@@ -27,7 +27,7 @@ function retrieveRepoCommits(repositoryName) {
 
 function addRepo(repository) {
   return axios
-    .create({headers: {'X-CSRFToken': Cookies.get('csrftoken')}})
+    .create({ headers: { 'X-CSRFToken': Cookies.get('csrftoken') } })
     .post(REPOSITORIES_URL, repository)
     .then(response => response.data);
 }

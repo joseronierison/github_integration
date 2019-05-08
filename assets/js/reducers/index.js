@@ -17,13 +17,13 @@ const user = (state = initialState, action) => {
     case 'LOAD_COMMITS':
       return {
         ...state,
-        repositories: state.repositories.map((reponsitory, index) =>{
+        repositories: state.repositories.map((reponsitory) => {
           if (reponsitory.name === action.repoName) {
-            return {...reponsitory, commits: action.payload};
+            return { ...reponsitory, commits: action.payload };
           }
 
           return reponsitory;
-        })
+        }),
       };
     default:
       return state;

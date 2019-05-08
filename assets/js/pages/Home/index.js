@@ -23,54 +23,56 @@ class Home extends React.Component {
 
     this.addRepository = this.addRepository.bind(this);
     this.toggleAddingRepo = this.toggleAddingRepo.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.searchInputRef = React.createRef();
   }
 
   componentWillMount() {
     this.setState({
       addingRepo: false,
-      error: false
+      error: false,
     });
 
     api.getRepositories().then(response => this.props.loadRepositories(response));
   }
 
   handleChange(event) {
-    const value = event.target.value;
+    const { value } = event.target;
 
     this.setState({
-      [event.target.name]: value
+      [event.target.name]: value,
     });
-  };
+  }
 
   addRepository(event) {
     event.preventDefault();
-    if(!this.state.repo_name) {
+    if (!this.state.repo_name) {
       return;
     }
 
     this.toggleAddingRepo();
 
     api.retrieveRepo(this.state.repo_name)
-      .then(response => {
-        api.addRepo(response)
-          .then(r => {
-            const commitsUrl = `/repository/${r.name}/commits`;
-            this.props.history.push(commitsUrl)
-          })
-          .catch(error => {
-            this.setState({error: "We could not add this repository in the database."});
+      .then((repository) => {
+        api.addRepo(repository)
+          .then(storedRepository => this.props.history.push(`/repository/${storedRepository.name}/commits`))
+          .catch(() => {
+            this.setState({
+              error: 'We could not add this repository in the database.',
+            });
             this.toggleAddingRepo();
           });
       })
-      .catch(error => {
-        this.setState({error: `We could not find the provided repository "${this.props.user.profile.username}/${this.state.repo_name}".`});
+      .catch(() => {
+        this.setState({
+          error: `We could not find the provided repository "${this.props.user.profile.username}/${this.state.repo_name}".`,
+        });
         this.toggleAddingRepo();
       });
   }
 
   toggleAddingRepo() {
-    this.setState({addingRepo: !this.state.addingRepo});
+    this.setState({ addingRepo: !this.state.addingRepo });
   }
 
   render() {
@@ -101,20 +103,25 @@ class Home extends React.Component {
                     {this.props.user.profile.username}/
                   </InputGroup.Text>
                 </InputGroup.Prepend>
-                <FormControl disabled={(this.state.addingRepo)? "disabled" : ""}
+                <FormControl
+                  disabled={this.state.addingRepo ? 'disabled' : ''}
                   name="repo_name"
-                  onChange={this.handleChange.bind(this)}
-                  aria-describedby="repository-name" />
+                  onChange={this.handleChange}
+                  aria-describedby="repository-name"
+                />
                 <InputGroup.Append>
-                  <Button variant="outline-secondary" onClick={this.addRepository} disabled={(this.state.addingRepo)? "disabled" : ""}>
-                    {(!this.state.addingRepo)? "Add" : <ReactLoading height={24} width={24} type="cubes" color="rgb(53, 126, 221)" /> }
+                  <Button variant="outline-secondary" onClick={this.addRepository} disabled={this.state.addingRepo ? 'disabled' : ''}>
+                    { !this.state.addingRepo ? 'Add' : <ReactLoading height={24} width={24} type="cubes" color="rgb(53, 126, 221)" /> }
                   </Button>
                 </InputGroup.Append>
               </InputGroup>
             </Col>
           </Row>
           <Row className="justify-content-md-center">
-            <RepositoryList repositories={this.props.user.repositories} history={this.props.history} />
+            <RepositoryList
+              repositories={this.props.user.repositories}
+              history={this.props.history}
+            />
           </Row>
         </Container>
       </Dashboard>
@@ -123,16 +130,18 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
+  loadRepositories: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  user: PropTypes.shape({
+    profile: PropTypes.shape({
+      name: PropTypes.string,
+      username: PropTypes.string,
+    }),
+    repositories: PropTypes.arrayOf,
+  }).isRequired,
 };
-
-Home.defaultProps = {
-  user: {
-    profile: {
-      name: "loading name..",
-      username: "loading username..",
-    },
-  },
-}
 
 export default connect(
   mapStateToProps,

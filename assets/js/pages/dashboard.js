@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { HomeNavbar, Loading } from '../app/github-integration';
 import api from '../api';
 import actions from '../actions';
-import Routes from '../routes';
 
 const mapStateToProps = state => ({
   ...state,
@@ -32,6 +32,17 @@ class Dashboard extends React.Component {
     );
   }
 }
+
+Dashboard.propTypes = {
+  loadUser: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    profile: PropTypes.shape({
+      name: PropTypes.string,
+      username: PropTypes.string,
+    }),
+  }).isRequired,
+  children: PropTypes.node.isRequired,
+};
 
 export default connect(
   mapStateToProps,
