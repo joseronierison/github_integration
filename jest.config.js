@@ -27,6 +27,7 @@ module.exports = {
   ],
   coveragePathIgnorePatterns: [
     'assets/js/store.js',
+    'assets/js/bootstrap-includes.js',
     'assets/js/index.js',
     'assets/js/jquery-index.js',
     'assets/js/constants/*',
