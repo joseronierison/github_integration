@@ -31,7 +31,6 @@ module.exports = {
     'assets/js/index.js',
     'assets/js/jquery-index.js',
     'assets/js/constants/*',
-    'assets/js/pages/*',
     'assets/js/tests/*',
   ],
   coverageThreshold: {
