@@ -14,10 +14,6 @@ const CommitList = props => (
 
 CommitList.propTypes = {
   repository: PropTypes.shape({
-    url: PropTypes.string,
-    sha: PropTypes.string,
-    author: PropTypes.string,
-    message: PropTypes.string,
     commits: PropTypes.array,
   }).isRequired,
 };
