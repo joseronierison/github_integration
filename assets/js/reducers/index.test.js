@@ -36,7 +36,7 @@ describe('user reducer', () => {
     const expectedState = {
       user: {
         profile,
-        repositories: [...repositories, { ...actualRepository, ...commits }],
+        repositories: [...repositories, { ...actualRepository, commits }],
       },
     };
 
