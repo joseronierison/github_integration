@@ -1,11 +1,15 @@
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
-from rest_framework import routers
+
 import django_js_reverse.views
+from rest_framework import routers
+
 from github_repositories import views as repository_views
 from users import views as users_views
+
 from . import views as app_views
+
 
 router = routers.DefaultRouter()
 router.register(r'repository', repository_views.RepositoryViewSet, base_name='repository')
