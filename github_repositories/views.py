@@ -1,13 +1,11 @@
-from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.authentication import SessionAuthentication
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import serializers, viewsets, generics
 from github import Github
 from github_repositories.models import Repository
-from users.models import User
+
 
 class RepositorySerializer(serializers.HyperlinkedModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
@@ -17,6 +15,7 @@ class RepositorySerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'user', 'name', 'description', 'full_name', 'url', 'created_at')
 
 
+# pylint: disable=too-many-ancestors
 class RepositoryViewSet(generics.ListAPIView, viewsets.ModelViewSet):
     serializer_class = RepositorySerializer
     authentication_classes = (SessionAuthentication,)
@@ -42,14 +41,17 @@ def build_repo_body(repo):
         'created_at': repo.created_at,
     }
 
+
 @api_view(['GET'])
 @authentication_classes([SessionAuthentication])
 @permission_classes((IsAuthenticated,))
 def retrieve_repo_commits(request, repo_name):
     client = github_client(request.user)
-    commits = [build_commit_body(commit) for commit in client.get_user().get_repo(repo_name).get_commits()]
+    repository = client.get_user().get_repo(repo_name)
+    commits = [build_commit_body(commit) for commit in repository.get_commits()]
 
     return Response(commits)
+
 
 def build_commit_body(commit):
     return {
@@ -58,6 +60,7 @@ def build_commit_body(commit):
         'author': commit.author.name,
         'url': commit.html_url,
     }
+
 
 def github_client(user):
     github = user.social_auth.get(provider='github')

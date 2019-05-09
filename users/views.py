@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from github import Github
 
+
 @api_view(['GET'])
 @authentication_classes((SessionAuthentication,))
 @permission_classes((IsAuthenticated,))
