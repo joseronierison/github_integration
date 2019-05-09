@@ -1,4 +1,5 @@
 [![License: MIT](https://img.shields.io/github/license/vintasoftware/django-react-boilerplate.svg)](LICENSE.txt)
+[![CircleCI](https://circleci.com/gh/joseronierison/github_integration.svg?style=svg)](https://circleci.com/gh/joseronierison/github_integration)
 
 # Github Integration
 
