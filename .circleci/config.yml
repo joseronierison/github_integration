@@ -10,6 +10,11 @@ jobs:
           PIPENV_IGNORE_VIRTUALENVS: True
           PIPENV_VENV_IN_PROJECT: True
           PIPENV_DONT_LOAD_ENV: 0
+      - image: circleci/postgres:9.6.2-alpine
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test
     steps:
       - checkout
       # this updates git-lfs to make pre-commit large files check hook work properly
@@ -78,7 +83,7 @@ jobs:
           environment:
             DJANGO_SETTINGS_MODULE: 'github_integration.settings.production'
             SECRET_KEY: "$(python -c 'import uuid; print(uuid.uuid4().hex + uuid.uuid4().hex)')"
-            DATABASE_URL: 'sqlite:///'
+            DATABASE_URL: 'postgres://postgres:postgres@localhost:5432/test'
             ALLOWED_HOSTS: '.example.org'
             SENDGRID_USERNAME: 'test'
             SENDGRID_PASSWORD: 'test'
