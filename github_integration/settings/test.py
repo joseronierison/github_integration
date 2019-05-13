@@ -5,12 +5,14 @@ SECRET_KEY = 'test'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'github_integration_test',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'TEST': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'github_integration_test',
+            'USER': 'postgres',
+            'PASSWORD': 'postgres',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
     }
 }
 
