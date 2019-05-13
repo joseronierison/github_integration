@@ -90,6 +90,8 @@ jobs:
             REDIS_URL: 'redis://'
       - run:
           command: pipenv run coverage run manage.py test
+          environment:
+            DJANGO_SETTINGS_MODULE: 'github_integration.settings.local_base'
       - run:
           command: npm run test
       - run:
