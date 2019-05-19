@@ -7,17 +7,21 @@ import api from '../../api';
 import actions from '../../actions';
 import Dashboard from '../dashboard';
 
-export class Commits extends React.Component {
+export class RepositoryCommits extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.goHome = this.goHome.bind(this);
-    this.refreshCommits = this.refreshCommits.bind(this);
-    this.refreshInterval = setInterval(this.refreshCommits, 3000);
   }
 
   componentWillMount() {
+    const repoName = this.props.match.params.repo_name;
+
+    this.setState({ repoName });
+
     api.getRepositories().then(response => this.props.loadRepositories(response));
-    this.refreshCommits();
+
+    api.retrieveRepoCommits(repoName)
+      .then(response => this.props.loadRepositoryCommits(repoName, response));
   }
 
   componentWillUnmount() {
@@ -30,12 +34,11 @@ export class Commits extends React.Component {
     this.props.history.push('/');
   }
 
-  refreshCommits() {
-    api.retrieveCommits().then(response => this.props.loadCommits(response));
-  }
-
   render() {
-    if (!this.props.user.latest_commits) {
+    const repo = this.props.user.repositories.find(repository =>
+      repository.name === this.state.repoName);
+
+    if (!repo || !repo.commits) {
       return <Dashboard><Loading /></Dashboard>;
     }
 
@@ -45,12 +48,13 @@ export class Commits extends React.Component {
           <Row className="justify-content-md-left bread-crumb-row">
             <Breadcrumb>
               <Breadcrumb.Item href="/" onClick={this.goHome}>Home</Breadcrumb.Item>
-              <Breadcrumb.Item active>All Commits</Breadcrumb.Item>
+              <Breadcrumb.Item href="/commits" >All Commits</Breadcrumb.Item>
+              <Breadcrumb.Item active>{repo.name}</Breadcrumb.Item>
             </Breadcrumb>
           </Row>
           <Row className="justify-content-md-center commits-list-row">
             <Col>
-              <CommitList commits={this.props.user.latest_commits} />
+              <CommitList commits={repo.commits} />
             </Col>
           </Row>
         </Container>
@@ -59,9 +63,9 @@ export class Commits extends React.Component {
   }
 }
 
-Commits.propTypes = {
+RepositoryCommits.propTypes = {
   loadRepositories: PropTypes.func.isRequired,
-  loadCommits: PropTypes.func.isRequired,
+  loadRepositoryCommits: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       repo_name: PropTypes.string,
@@ -79,7 +83,6 @@ Commits.propTypes = {
       full_name: PropTypes.string,
       name: PropTypes.string,
     })),
-    latest_commits: PropTypes.array,
   }).isRequired,
 };
 
@@ -88,11 +91,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  loadCommits: payload => dispatch(actions.loadCommits(payload)),
+  loadRepositoryCommits: (repoName, payload) =>
+    dispatch(actions.loadRepositoryCommits(repoName, payload)),
   loadRepositories: payload => dispatch(actions.loadRepositories(payload)),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Commits);
+)(RepositoryCommits);

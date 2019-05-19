@@ -8,7 +8,9 @@ const HomeNavbar = props => (
     <Navbar.Brand><NavLink to="/" exact className="navbar-link">Github Integration</NavLink></Navbar.Brand>
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
     <Navbar.Collapse id="responsive-navbar-nav">
-      <Nav className="mr-auto" />
+      <Nav className="mr-auto">
+        <NavLink to="/commits" exact className="navbar-link">Commits</NavLink> <br />
+      </Nav>
       <Nav>
         <UserMenu {...props} />
       </Nav>

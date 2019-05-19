@@ -57,13 +57,19 @@ class RepositoryViewSet(generics.ListAPIView, viewsets.ModelViewSet):
     def perform_create(self, serializer):
         user = self.request.user
         repository = serializer.save(user=user)
-        setup_repo.delay(user.id, repository.name, repository.full_name)
+        setup_repo.apply([user.id, repository.name, repository.full_name])
 
 
 class CommitSerializer(serializers.HyperlinkedModelSerializer):
+    repository_name = serializers.SerializerMethodField()
+
+    def get_repository_name(self, commit):
+        return commit.repository.name
+
+
     class Meta:
         model = Commit
-        fields = ('id', 'sha', 'message', 'author', 'url', 'created_at')
+        fields = ('id', 'repository_name', 'sha', 'message', 'author', 'url', 'created_at')
 
 
 # pylint: disable=too-many-ancestors

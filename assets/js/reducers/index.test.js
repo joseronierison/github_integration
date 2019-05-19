@@ -22,6 +22,23 @@ describe('user reducer', () => {
     expect(user(undefined, action)).toEqual({ user: { repositories } });
   });
 
+  it('should load user commits', () => {
+    const predefinedState = {
+      user: { profile },
+    };
+
+    const action = { type: actionTypes.LOAD_COMMITS, payload: commits };
+
+    const expectedState = {
+      user: {
+        profile,
+        latest_commits: commits,
+      },
+    };
+
+    expect(user(predefinedState, action)).toEqual(expectedState);
+  });
+
   it('should load user repository commits when repository is found', () => {
     const actualRepository = { name: 'actual_repo_name', full_name: 'username/actual_repo_name' };
     const predefinedState = {
@@ -31,7 +48,7 @@ describe('user reducer', () => {
       },
     };
 
-    const action = { type: actionTypes.LOAD_COMMITS, repoName: 'actual_repo_name', payload: commits };
+    const action = { type: actionTypes.LOAD_REPOSITORY_COMMITS, repoName: 'actual_repo_name', payload: commits };
 
     const expectedState = {
       user: {
@@ -51,7 +68,7 @@ describe('user reducer', () => {
       },
     };
 
-    const action = { type: actionTypes.LOAD_COMMITS, repoName: 'a-repo-name', payload: commits };
+    const action = { type: actionTypes.LOAD_REPOSITORY_COMMITS, repoName: 'a-repo-name', payload: commits };
 
     expect(user(predefinedState, action)).toEqual(predefinedState);
   });

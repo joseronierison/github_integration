@@ -31,8 +31,8 @@ def setup_repo(user_id, repo_name, repo_full_name):
 
     commits = repo.get_commits()
 
-    return [save_commit.delay(repo_full_name,
-                              utils.build_commit_body(commit)) for commit in commits]
+    return [save_commit.apply([repo_full_name,
+                               utils.build_commit_body(commit)]) for commit in commits]
 
 
 @app.task

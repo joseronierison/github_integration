@@ -55,7 +55,7 @@ class Home extends React.Component {
     api.retrieveRepo(this.state.repo_name)
       .then((repository) => {
         api.addRepo(repository)
-          .then(storedRepository => this.props.history.push(`/repository/${storedRepository.name}/commits`))
+          .then(() => this.props.history.push('/commits'))
           .catch(() => {
             this.setState({
               error: 'We could not add this repository in the database.',

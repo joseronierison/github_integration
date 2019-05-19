@@ -17,6 +17,11 @@ const user = (state = initialState, action) => {
     case 'LOAD_COMMITS':
       return {
         ...state,
+        latest_commits: action.payload,
+      };
+    case 'LOAD_REPOSITORY_COMMITS':
+      return {
+        ...state,
         repositories: state.repositories.map((reponsitory) => {
           if (reponsitory.name === action.repoName) {
             return { ...reponsitory, commits: action.payload };

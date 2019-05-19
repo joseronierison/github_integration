@@ -19,10 +19,18 @@ function retrieveRepo(repositoryName) {
     .then(response => response.data);
 }
 
-function retrieveRepoCommits(repositoryName) {
+function retrieveCommits(limit = 30, offset = 0) {
+  const url = `${RETRIEVE_REPO_COMMITS_URL}?limit=${limit}&offset=${offset}`;
   return axios
-    .get(`${RETRIEVE_REPO_COMMITS_URL}?repo=${repositoryName}`)
-    .then(response => response.data);
+    .get(url)
+    .then(response => response.data.results);
+}
+
+function retrieveRepoCommits(repositoryName, limit = 30, offset = 0) {
+  const url = `${RETRIEVE_REPO_COMMITS_URL}?repo=${repositoryName}&limit=${limit}&offset=${offset}`;
+  return axios
+    .get(url)
+    .then(response => response.data.results);
 }
 
 function addRepo(repository) {
@@ -42,6 +50,7 @@ export default {
   getRepositories,
   retrieveRepo,
   retrieveRepoCommits,
+  retrieveCommits,
   addRepo,
   getUser,
 };
