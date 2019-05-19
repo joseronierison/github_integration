@@ -66,7 +66,6 @@ class CommitSerializer(serializers.HyperlinkedModelSerializer):
     def get_repository_name(self, commit):
         return commit.repository.name
 
-
     class Meta:
         model = Commit
         fields = ('id', 'repository_name', 'sha', 'message', 'author', 'url', 'created_at')
