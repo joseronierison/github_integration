@@ -6,8 +6,6 @@ from .base import *  # noqa
 
 DEBUG = False
 
-HOST = config('HOST')
-
 SECRET_KEY = config('SECRET_KEY')
 
 DATABASES = {
