@@ -1,5 +1,7 @@
 from django.test import TestCase
+
 from users.models import User
+
 
 class UserTestCase(TestCase):
     email = "test@@test.com"

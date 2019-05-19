@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 const CURRENT_USER_URL = '/api/current_user';
 const REPOSITORIES_URL = '/api/repository/';
 const RETRIEVE_REPO_URL = '/api/retrieve_repo';
-const RETRIEVE_REPO_COMMITS_URL = '/api/retrieve_repo_commits';
+const RETRIEVE_REPO_COMMITS_URL = '/api/commit/';
 
 
 function getRepositories() {
@@ -21,7 +21,7 @@ function retrieveRepo(repositoryName) {
 
 function retrieveRepoCommits(repositoryName) {
   return axios
-    .get(`${RETRIEVE_REPO_COMMITS_URL}/${repositoryName}`)
+    .get(`${RETRIEVE_REPO_COMMITS_URL}?repo=${repositoryName}`)
     .then(response => response.data);
 }
 

@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('github_repositories', '0002_auto_20190505_1619'),
+        ('github_integration', '0002_auto_20190505_1619'),
     ]
 
     operations = [

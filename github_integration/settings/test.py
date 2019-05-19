@@ -1,6 +1,7 @@
 from .base import *  # noqa
 
 
+GITHUB_WEBHOOK_SECRET = 'test'
 SECRET_KEY = 'test'
 
 DATABASES = {

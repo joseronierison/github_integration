@@ -2,9 +2,10 @@
 
 import os
 
-from decouple import config  # noqa
-import django_heroku
 import dj_database_url
+import django_heroku
+from decouple import config  # noqa
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -35,7 +36,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SOCIAL_AUTH_POSTGRES_JSONFIELD = True
-
+GITHUB_WEBHOOK_SECRET = os.environ.get('GITHUB_WEBHOOK_SECRET')
 SOCIAL_AUTH_GITHUB_KEY = os.environ.get('GITHUB_KEY')
 SOCIAL_AUTH_GITHUB_SECRET = os.environ.get('GITHUB_SECRET')
 
@@ -65,7 +66,7 @@ INSTALLED_APPS = [
 
     'common',
     'users',
-    'github_repositories',
+    'github_integration',
 ]
 
 REST_FRAMEWORK = {
@@ -74,7 +75,8 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
-    ]
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination'
 }
 
 MIDDLEWARE = [
