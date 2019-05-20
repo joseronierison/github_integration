@@ -126,7 +126,7 @@ class Home extends React.Component {
           <hr />
           <Row className="justify-content-md-center">
             <h5>In order to the application fully work, please, <br />
-              <a href="https://github.com/apps/gh-integration-production" target="_blank">
+              <a href="https://github.com/apps/gh-integration-production" rel="noopener noreferrer" target="_blank">
                 install the github app
               </a>
             </h5>
