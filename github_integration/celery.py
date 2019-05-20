@@ -29,7 +29,7 @@ def setup_repo(user_id, repo_name, repo_full_name):
     user = User.objects.get(id=user_id)
     repo = utils.github_client(user).get_user().get_repo(repo_name)
 
-    commits = repo.get_commits()
+    commits = repo.get_commits().reversed
 
     return [save_commit.apply([repo_full_name,
                                utils.build_commit_body(commit)]) for commit in commits]
