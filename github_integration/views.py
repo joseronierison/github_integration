@@ -102,13 +102,15 @@ def github_webhook(request):
     secret = bytes(settings.GITHUB_WEBHOOK_SECRET, 'latin-1')
     signature = 'sha1=' + hmac.new(secret, request.body, hashlib.sha1).hexdigest()
 
-    logger.info("Headers: %s.", str(request.META))
-    logger.info("Body: %s.", str(request.body))
-
     if signature != request.META.get('HTTP_X_HUB_SIGNATURE'):
+        logger.error("Invalid signature.")
         return Response({"message": "Invalid signature."}, status=401)
 
-    if request.META.get('HTTP_X_GITHUB_EVENT') != 'push':
+    event = request.META.get('HTTP_X_GITHUB_EVENT')
+    logger.info("Event %s received.", event)
+
+    if event not in ['push', 'check_suite']:
+        logger.info("Event %s discarded.", event)
         return Response({"message": "Event discarded."}, status=200)
 
     body_unicode = request.body.decode('utf-8')
@@ -116,11 +118,16 @@ def github_webhook(request):
 
     full_name = body['repository']['full_name']
 
+    commits = body.get('commits') or [body.get('check_suite').get('head_commit')]
+
     for commit in body['commits']:
+        logger.info("Processing new commit %s", str(commit))
+        url = commit.get('url') or "Not specified"
         save_commit.delay(full_name, {'sha': commit['id'],
                                       'message': commit['message'],
                                       'author': commit['author']['name'],
-                                      'url': commit['url'],
+                                      'url': url,
                                       })
 
+    logger.info("Event %s processed.", event)
     return Response({"message": "Done!"}, status=201)
