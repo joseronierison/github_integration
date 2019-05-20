@@ -123,11 +123,15 @@ def github_webhook(request):
     for commit in commits:
         logger.info("Processing new commit %s", str(commit))
         url = commit.get('url') or "Not specified"
-        save_commit.delay(full_name, {'sha': commit['id'],
-                                      'message': commit['message'],
-                                      'author': commit['author']['name'],
-                                      'url': url,
-                                      })
+        save_commit.apply([
+            full_name,
+            {
+                'sha': commit['id'],
+                'message': commit['message'],
+                'author': commit['author']['name'],
+                'url': url,
+            }
+        ])
 
     logger.info("Event %s processed.", event)
     return Response({"message": "Done!"}, status=201)
