@@ -102,6 +102,9 @@ def github_webhook(request):
     secret = bytes(settings.GITHUB_WEBHOOK_SECRET, 'latin-1')
     signature = 'sha1=' + hmac.new(secret, request.body, hashlib.sha1).hexdigest()
 
+    logger.info("headers %s.", str(request.META))
+    logger.info("headers %s.", str(request.body))
+
     if signature != request.META['headers']['X-Hub-Signature']:
         return Response({"message": "Invalid signature."}, status=401)
 
