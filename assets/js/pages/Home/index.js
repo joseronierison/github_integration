@@ -123,6 +123,14 @@ class Home extends React.Component {
               history={this.props.history}
             />
           </Row>
+          <hr />
+          <Row className="justify-content-md-center">
+            <h5>In order to the application fully work, please, <br />
+              <a href="https://github.com/apps/gh-integration-production" target="_blank">
+                install the github app
+              </a>
+            </h5>
+          </Row>
         </Container>
       </Dashboard>
     );

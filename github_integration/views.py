@@ -109,7 +109,7 @@ def github_webhook(request):
     event = request.META.get('HTTP_X_GITHUB_EVENT')
     logger.info("Event %s received.", event)
 
-    if event not in ['push', 'check_suite']:
+    if event not in ['push']:
         logger.info("Event %s discarded.", event)
         return Response({"message": "Event discarded."}, status=200)
 
@@ -118,18 +118,17 @@ def github_webhook(request):
 
     full_name = body['repository']['full_name']
 
-    commits = body.get('commits') or [body.get('check_suite').get('head_commit')]
+    commits = body.get('commits')
 
     for commit in commits:
         logger.info("Processing new commit %s", str(commit))
-        url = commit.get('url') or "Not specified"
         save_commit.apply([
             full_name,
             {
                 'sha': commit['id'],
                 'message': commit['message'],
                 'author': commit['author']['name'],
-                'url': url,
+                'url': commit.get('url'),
             }
         ])
 
