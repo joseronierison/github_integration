@@ -29,7 +29,7 @@ class WebhookTestCase(TestCase):
       "compare": "https://github.com/test/test/compare/a10867b14bb7...f867b4ce42e26",
       "commits": [
         {
-            "sha": expected_first_sha,
+            "id": expected_first_sha,
             "message": expected_first_message,
             "author": {
                 "name": "Teste Name",
@@ -39,7 +39,7 @@ class WebhookTestCase(TestCase):
             "distinct": True,
         },
         {
-            "sha": expected_second_sha,
+            "id": expected_second_sha,
             "message": expected_second_message,
             "author": {
                 "name": "Teste Name",
