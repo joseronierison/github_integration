@@ -120,7 +120,7 @@ def github_webhook(request):
 
     commits = body.get('commits') or [body.get('check_suite').get('head_commit')]
 
-    for commit in body['commits']:
+    for commit in commits:
         logger.info("Processing new commit %s", str(commit))
         url = commit.get('url') or "Not specified"
         save_commit.delay(full_name, {'sha': commit['id'],
