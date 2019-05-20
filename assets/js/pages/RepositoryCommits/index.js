@@ -11,6 +11,7 @@ export class RepositoryCommits extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.goHome = this.goHome.bind(this);
+    this.goToCommits = this.goToCommits.bind(this);
   }
 
   componentWillMount() {
@@ -34,6 +35,12 @@ export class RepositoryCommits extends React.Component {
     this.props.history.push('/');
   }
 
+  goToCommits(event) {
+    event.preventDefault();
+
+    this.props.history.push('/commits');
+  }
+
   render() {
     const repo = this.props.user.repositories.find(repository =>
       repository.name === this.state.repoName);
@@ -48,7 +55,7 @@ export class RepositoryCommits extends React.Component {
           <Row className="justify-content-md-left bread-crumb-row">
             <Breadcrumb>
               <Breadcrumb.Item href="/" onClick={this.goHome}>Home</Breadcrumb.Item>
-              <Breadcrumb.Item href="/commits" >All Commits</Breadcrumb.Item>
+              <Breadcrumb.Item href="/commits" onClick={this.goToCommits}>All Commits</Breadcrumb.Item>
               <Breadcrumb.Item active>{repo.name}</Breadcrumb.Item>
             </Breadcrumb>
           </Row>
