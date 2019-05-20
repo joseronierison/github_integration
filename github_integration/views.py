@@ -79,12 +79,12 @@ class CommitViewSet(generics.ListAPIView, viewsets.ModelViewSet):
 
     def get_queryset(self):
         repo = self.request.query_params.get('repo', None)
-        queryset = Commit.objects.filter(repository__user=self.request.user)
+        queryset = Commit.objects.filter(repository__user=self.request.user).order_by('id')
 
         if repo is not None:
             queryset = queryset.filter(repository__name=repo)
 
-        return queryset.order_by('created_at')
+        return queryset
 
 
 @api_view(['GET'])
