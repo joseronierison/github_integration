@@ -78,7 +78,8 @@ class WebhookTestCase(TestCase):
         factory = APIRequestFactory()
 
         request = factory.post('/api/webhook', self.payload, format='json',
-                                 headers=self.valid_headers)
+                                HTTP_X_HUB_SIGNATURE=self.valid_signature,
+                                HTTP_X_GITHUB_EVENT='push')
         response = repository_views.github_webhook(request)
 
         self.assertEqual(response.status_code, 201)
@@ -91,9 +92,9 @@ class WebhookTestCase(TestCase):
 
     def test_does_not_store_commit_when_is_not_a_push_event(self):
         factory = APIRequestFactory()
-        headers = {'X-GitHub-Event': 'open', 'X-Hub-Signature': self.valid_signature}
         request = factory.post('/api/webhook', self.payload, format='json',
-                                 headers=headers)
+                                HTTP_X_HUB_SIGNATURE=self.valid_signature,
+                                HTTP_X_GITHUB_EVENT='open')
 
         response = repository_views.github_webhook(request)
 
@@ -105,7 +106,8 @@ class WebhookTestCase(TestCase):
         factory = APIRequestFactory()
 
         request = factory.post('/api/webhook', self.payload, format='json',
-                                 headers={'X-GitHub-Event': 'push', 'X-Hub-Signature': 'wrong'})
+                                HTTP_X_HUB_SIGNATURE='wrong-signature',
+                                HTTP_X_GITHUB_EVENT='open')
 
         response = repository_views.github_webhook(request)
 
