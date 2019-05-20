@@ -84,7 +84,7 @@ class CommitViewSet(generics.ListAPIView, viewsets.ModelViewSet):
         if repo is not None:
             queryset = queryset.filter(repository__name=repo)
 
-        return queryset
+        return queryset.order_by('created_at')
 
 
 @api_view(['GET'])
