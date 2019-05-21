@@ -61,6 +61,7 @@ export class RepositoryCommits extends React.Component {
           </Row>
           <Row className="justify-content-md-center commits-list-row">
             <Col>
+              <h5>Listing last 30 captured commits</h5>
               <CommitList commits={repo.commits} />
             </Col>
           </Row>

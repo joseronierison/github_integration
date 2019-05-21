@@ -45,11 +45,12 @@ export class Commits extends React.Component {
           <Row className="justify-content-md-left bread-crumb-row">
             <Breadcrumb>
               <Breadcrumb.Item href="/" onClick={this.goHome}>Home</Breadcrumb.Item>
-              <Breadcrumb.Item active>All Commits</Breadcrumb.Item>
+              <Breadcrumb.Item active>Last Commits</Breadcrumb.Item>
             </Breadcrumb>
           </Row>
           <Row className="justify-content-md-center commits-list-row">
             <Col>
+              <h5>Listing last 30 captured commits</h5>
               <CommitList commits={this.props.user.latest_commits} />
             </Col>
           </Row>
